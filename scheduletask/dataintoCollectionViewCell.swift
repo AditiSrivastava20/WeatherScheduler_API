@@ -12,6 +12,7 @@ class dataintoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var tableview: UITableView!
     
+    var datafill: [Details]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,20 +34,31 @@ extension dataintoCollectionViewCell : UITableViewDelegate ,UITableViewDataSourc
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return 10
+        return (datafill?.count)!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let tablecell = tableView.dequeueReusableCell(withIdentifier: "tablecell", for: indexPath) as? dataintoTableViewCell
-            else{
-                
-                fatalError()
+        
+        let tablecell = tableView.dequeueReusableCell(withIdentifier: "tablecell", for: indexPath) as? dataintoTableViewCell
+        tablecell?.maintime?.text = (datafill?[indexPath.row].start_time)!
+        tablecell?.time?.text = datafill?[indexPath.row].time_duration
+        tablecell?.home?.text = "Home"
+        tablecell?.address?.text = datafill?[indexPath.row].day_location
+        
+        for subject in (datafill?[indexPath.row].subjects)!
+        {
+        tablecell?.subject?.text = subject.subject_name ?? ""
         }
-        //        tablecell.prodname?.text = array[selectedItem][indexPath.row].name
-        //        tablecell.proddesc?.text = array[selectedItem][indexPath.row].value
-        //        tablecell.prodprice?.text = array[selectedItem][indexPath.row].price
-        //        tablecell.prodimage?.kf.setImage(with: array[selectedItem][indexPath.row].pic)
-        //
-        return tablecell
+        tablecell?.number?.text = String(describing: datafill?[indexPath.row].enrolled ?? 0)
+        tablecell?.quantity?.text = datafill?[indexPath.row].age_group
+        tablecell?.money?.text = (datafill?[indexPath.row].charge_student)!
+       
+        tablecell?.view.layer.shadowColor = UIColor.lightGray.cgColor
+        tablecell?.view.layer.shadowOpacity = 1
+        tablecell?.view.layer.shadowOffset = CGSize.init(width: 1, height: 1)
+        tablecell?.view.layer.shadowRadius = 2
+        
+    
+        return tablecell!
     }
 }

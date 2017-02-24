@@ -11,9 +11,9 @@ import ObjectMapper
 
 class dataintoTableViewCell: UITableViewCell {
     
-    var chage: Instructor!
+    var change: Instructor!
     
-    var innerdata: Instructor!
+
     
     
     @IBOutlet weak var view: UIView!
